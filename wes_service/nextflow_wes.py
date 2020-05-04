@@ -44,9 +44,10 @@ class Workflow(object):
         # with open(os.path.join(self.workdir, "cwl.input.json"), "w") as inputtemp:
         #     json.dump(request["workflow_params"], inputtemp)
 
-        workflow_url = request.get("workflow_url")  # Will always be local path to descriptor cwl, or url.
+        # Will always be local path to descriptor cwl, or url.
+        workflow_url = request.get("workflow_url")
 
-        output = open(os.path.join(self.workdir, "cwl.output.json"), "w")
+        output = open(os.path.join(self.workdir, "nextflow.output"), "w")
         stderr = open(os.path.join(self.workdir, "stderr"), "w")
 
         runner = opts.getopt("runner", default="nextflow")
@@ -135,11 +136,13 @@ class Workflow(object):
         with open(os.path.join(self.workdir, "stderr"), "r") as f:
             stderr = f.read()
 
-        outputobj = {}
-        if state == "COMPLETE":
-            output_path = os.path.join(self.workdir, "cwl.output.json")
-            with open(output_path, "r") as outputtemp:
-                outputobj = json.load(outputtemp)
+        # outputobj = {}
+        outputobj = ""
+        #if state == "COMPLETE":
+        output_path = os.path.join(self.workdir, "nextflow.output")
+        # Not a json file returned
+        with open(output_path, "r") as outputtemp:
+            stdout = outputtemp.read()
 
         return {
             "run_id": self.run_id,
@@ -149,12 +152,12 @@ class Workflow(object):
                 "cmd": [""],
                 "start_time": "",
                 "end_time": "",
-                "stdout": "",
+                "stdout": stdout,
                 "stderr": stderr,
                 "exit_code": exit_code
             },
             "task_logs": [],
-            "outputs": outputobj
+            "outputs": stdout
         }
 
     def cancel(self):
