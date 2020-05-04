@@ -68,7 +68,11 @@ def main(argv=sys.argv[1:]):
 
     if args.log:
         response = client.get_run_log(run_id=args.log)
-        sys.stdout.write(requests.get(response["run_log"]["stderr"], headers=auth).text)
+        sys.stdout.write(response["run_log"]["stdout"])
+        sys.stdout.write(response["run_log"]["stderr"])
+
+        # sys.stdout.write(requests.get(response["run_log"]["stdout"], headers=auth).text)
+        # sys.stdout.write(requests.get(response["run_log"]["stderr"], headers=auth).text)
         return 0
 
     if args.get:
