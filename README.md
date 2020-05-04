@@ -100,16 +100,6 @@ Use "--opt" following by "key=value"
 $ wes-server --backend=wes_service.cwl_runner --opt extra=--workDir=/tmp/work
 ```
 
-
-### Pass parameters to nextflow
-
-Use "--opt" following by "key=value"
-
-```
-$ wes-server --backend=wes_service.nextflow
-```
-
-
 ## Development
 If you would like to develop against `workflow-service` make sure you pass the provided test and it is flake8 compliant
 

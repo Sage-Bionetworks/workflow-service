@@ -47,7 +47,7 @@ def wf_info(workflow_path):
     enable our approach to version checking, then removed after version is extracted.
     """
 
-    supported_formats = ['py', 'wdl', 'cwl']
+    supported_formats = ['py', 'wdl', 'cwl', "nf"]
     file_type = workflow_path.lower().split('.')[-1]  # Grab the file extension
     workflow_path = workflow_path if ':' in workflow_path else 'file://' + workflow_path
 
